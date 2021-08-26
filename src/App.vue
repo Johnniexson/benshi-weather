@@ -3,46 +3,46 @@
 </template>
 
 <script lang="ts">
-import Weather from './components/Weather.vue'
-import axios from 'axios'
-import { defineComponent, onMounted, ref } from 'vue'
+import Weather from "./components/Weather.vue";
+import axios from "axios";
+import { defineComponent, onMounted, ref } from "vue";
 
 export default defineComponent({
-  name: 'App',
+  name: "App",
   components: {
     Weather
   },
-  setup () {
-    const apiKey = ref('e06102b119b0c37ffc2b2eaf47f3fae4')
+  setup() {
+    const apiKey = ref("e06102b119b0c37ffc2b2eaf47f3fae4");
     const url = ref(
-      `https://api.openweathermap.org/data/2.5/onecall?lon=2.159&lat=41.3888&uniots=metric&appid=${apiKey.value}`
-    )
-    const data = ref()
-    const loading = ref(true)
+      `https://api.openweathermap.org/data/2.5/onecall?lon=2.159&lat=41.3888&units=metric&appid=${apiKey.value}`
+    );
+    const data = ref();
+    const loading = ref(true);
 
-    function fetchReport () {
+    function fetchReport() {
       axios(url.value)
-        .then((res) => {
-          data.value = res.data
+        .then(res => {
+          data.value = res.data;
         })
         .catch(() => {
-          alert('Failed to fetch weather report.')
+          alert("Failed to fetch weather report.");
         })
         .finally(() => {
-          loading.value = false
-        })
+          loading.value = false;
+        });
     }
 
     onMounted(() => {
-      fetchReport()
-    })
+      fetchReport();
+    });
     return {
       loading,
       data,
       fetchReport
-    }
+    };
   }
-})
+});
 </script>
 
 <style lang="scss">
