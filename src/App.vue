@@ -1,27 +1,67 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  <Weather v-if="data" :report="data" />
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import HelloWorld from './components/HelloWorld.vue'
+import Weather from './components/Weather.vue'
+import axios from 'axios'
+import { defineComponent, onMounted, ref } from 'vue'
 
 export default defineComponent({
   name: 'App',
   components: {
-    HelloWorld
+    Weather
+  },
+  setup () {
+    const apiKey = ref('e06102b119b0c37ffc2b2eaf47f3fae4')
+    const url = ref(
+      `https://api.openweathermap.org/data/2.5/onecall?lon=2.159&lat=41.3888&uniots=metric&appid=${apiKey.value}`
+    )
+    const data = ref()
+    const loading = ref(true)
+
+    function fetchReport () {
+      axios(url.value)
+        .then((res) => {
+          data.value = res.data
+        })
+        .catch(() => {
+          alert('Failed to fetch weather report.')
+        })
+        .finally(() => {
+          loading.value = false
+        })
+    }
+
+    onMounted(() => {
+      fetchReport()
+    })
+    return {
+      loading,
+      data,
+      fetchReport
+    }
   }
 })
 </script>
 
 <style lang="scss">
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  font-size: 15px;
+  font-weight: normal;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 0;
+    margin-bottom: 5px;
+    font-weight: normal;
+  }
 }
 </style>
