@@ -3,7 +3,11 @@ import Weather from "@/components/Weather.vue";
 
 describe("Weather.vue", () => {
   it("renders props.report when passed", () => {
-    const report = { timezone: "Europe/Madrid" };
+    const report = {
+      timezone: "Europe/Madrid",
+      current: {},
+      daily: []
+    };
     const wrapper = shallowMount(Weather, {
       props: { report }
     });
