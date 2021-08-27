@@ -14,14 +14,12 @@ export default defineComponent({
   },
   setup() {
     const apiKey = process.env.VUE_APP_WEATHER_API_KEY;
-    const url = ref(
-      `https://api.openweathermap.org/data/2.5/onecall?lon=2.159&lat=41.3888&units=metric&appid=${apiKey}`
-    );
+    const url = `https://api.openweathermap.org/data/2.5/onecall?lon=2.159&lat=41.3888&units=metric&appid=${apiKey}`;
     const data = ref();
     const loading = ref(true);
 
     function fetchReport() {
-      axios(url.value)
+      axios(url)
         .then(res => {
           data.value = res.data;
         })
