@@ -13,9 +13,9 @@ export default defineComponent({
     Weather
   },
   setup() {
-    const apiKey = ref("e06102b119b0c37ffc2b2eaf47f3fae4");
+    const apiKey = process.env.VUE_APP_WEATHER_API_KEY;
     const url = ref(
-      `https://api.openweathermap.org/data/2.5/onecall?lon=2.159&lat=41.3888&units=metric&appid=${apiKey.value}`
+      `https://api.openweathermap.org/data/2.5/onecall?lon=2.159&lat=41.3888&units=metric&appid=${apiKey}`
     );
     const data = ref();
     const loading = ref(true);
